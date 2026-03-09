@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image upload</title>
+</head>
+<body style="font-family: Arial; padding: 30px;">
+    <a href="/index.html">Search for an image</a>
+
+    <h2>Upload an Image</h2>
+
+    <form action="/api/upload" enctype="multipart/form-data" method="post", onsubmit="uploadHandler(event)">
+        <div class="form-group">
+            <input type="file" class="form-control-file" name="image">
+            <input type="text" class="form-control" placeholder="Enter name of character..." name="name">
+            <input type="submit" value="Upload" class="btn btn-default">
+        </div>
+    </form>
+           
+
+    <br><br>
+
+    <img id="imgBox" width="300" style="border: 1px solid #ccc;">
+
+    <script>
+
+        async function uploadHandler(upload) {
+            upload.preventDefault();
+
+            const dataFromForm = new FormData(upload.target);
+            const res = await fetch("/api/upload", {method: "POST", body: dataFromForm});
+            const regData = await res.json();
+            alert("Image was uploaded");
+        }
+    </script>
+
+</body>
+</html>
